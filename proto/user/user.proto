@@ -1,0 +1,46 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/kaatuuushkaa/project-protos/proto/user;userpb";
+
+message User {
+  uint32 id =1;
+  string email = 2;
+  string password =3;
+}
+
+message CreateUserRequest {
+  string email =1;
+  string password =2;
+}
+
+message CreateUserResponse {
+  User user =1;
+}
+
+message UserID {
+  uint32 id =1;
+}
+
+message UpdateUserRequest {
+  uint32 id =1;
+  string email =2;
+  string password =3;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+}
+
+message ListUsersRequest {}
+
+message ListUsersResponse {
+  repeated User users =1;
+}
+
+service UserService {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser (UserID) returns (User);
+  rpc UpdateUser (UpdateUserRequest) returns (User);
+  rpc DeleteUser (UserID) returns (DeleteUserResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+}
